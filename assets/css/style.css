@@ -1,4 +1,13 @@
+body{
+ 
+    background-color: rgb(115, 227, 241);
+    background-repeat: no-repeat;
+}
+
 .card-header{
     background-color: rgb(85, 85, 219);
     color: white;
+}
+jumbotron{
+    background-image: url(assets/images/amtrak-363669_1280.jpg);
 }
