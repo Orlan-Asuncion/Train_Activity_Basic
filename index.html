@@ -1,146 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Train Scheduler</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-</head>
-<body>
-   <div class="container">
-       
-      <div class="jumbotron jumbotron-fluid text-center mt-3" style="background-color:rgb(133, 47, 7);">
-                <!-- <div class="container"> -->
-                    <div class="row">
-                        <div class="col-12">
-                             <h2 class="display-4 font-weight-normal text-white"> Anytime is Train Time</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                             <h4 class="font-weight-normal text-white"> Choo Choo. Chee chee</h4>
-                        </div>
-                    </div>
-                <!-- </div> -->
-            </div>
-            <div class="row">
-                    <div class="col-12 mb-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Current Train Schedule</h3>  
-                            </div>
-                            <div class="card-body">
-                              <table class="table table-striped" id="trainTable">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col" >Train Name</th>
-                                      <th scope="col" >Destination</th>
-                                      <th scope="col" >Frequency(min)</th>
-                                      <th scope="col" >Next Arrival</th>
-                                      <th scope="col" >Minutes Away</th>
-                                    </tr>
-                                  </thead>
-                                 
-                                  <tbody>
-                                    <!-- <tr>
-                                      <th scope="row"> Trenton Express </th>
-                                      <td>Trenton</td>
-                                      <td>25</td>
-                                      <td>05:35PM</td>
-                                      <td>10</td> 
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Oregon Trail</th>
-                                      <td>Salem, Oregon</td>
-                                      <td>3600</td>
-                                      <td>01:39PM</td>
-                                      <td>1154</td>                                    
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Midnight Carriage</th>
-                                      <td>Philadelpia</td>
-                                      <td>15</td>
-                                      <td>05:35PM</td>
-                                      <td>10</td>                                     
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Sing Sing Caravan</th>
-                                      <td>Atlanta</td>
-                                      <td>45</td>
-                                      <td>05:53PM</td>
-                                      <td>28</td>                                
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">Boston Bus</th>
-                                        <td>Boston</td>
-                                        <td>65</td>
-                                        <td>05:50PM</td>
-                                        <td>25</td>                                      
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">California Caravan</th>
-                                        <td>San Francisco</td>
-                                        <td>6000</td>
-                                        <td>01:25AM</td>
-                                        <td>4740</td>                                               
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Analben's Train</th>
-                                        <td>Florida</td>
-                                        <td>25</td>
-                                        <td>05:26PM</td>
-                                        <td>3</td>          
-                                    </tr>                                                 -->
-                                  </tbody> 
-                                </table>
-                            </div>
-                          </div>
-                        </div> 
-                            <div class="col-12 mb-3">
-                                    <div class="card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Add Train</h3>  
-                                            </div>
-                                            <div class="card-body">    
-                                                <form class="form">
-                                                    <div class="form-group">
-                                                            <label for="trainName">Train Name</label>
-                                                            <input type="text" class="form-control" id="name" placeholder="">
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <label for="trainName">Destination</label>
-                                                      <input type="text" class="form-control" id="dest" placeholder="">
-                                              </div>
-                                                    <div class="form-group">
-                                                        <label class="my-1 mr-2" for="firstTime">First Train Time(HH:mm-military time)</label>
-                                                        <input type="text" class="form-control" id="train-time" placeholder="">
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <label for="freq">Frequency</label>
-                                                            <input type="text" class="form-control" id="freq" placeholder="">
-                                                    </div>
-                                                    
-                                                        
-                                                        <input class="btn btn-primary" type="submit" id="submit" value="Submit">                      
-                                                                                            
-                                                </form>
-                                           </div>
-                                            
-                                        </div>
-                            </div>
-                          </div>
-                            
-                        </div>    
 
-   </div>
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Train Scheduler</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron jumbotron-fluid text-center mt-3" style="background-color:rgb(133, 47, 7);">
+      <!-- <div class="container"> -->
+      <div class="row">
+        <div class="col-12">
+          <h2 class="display-4 font-weight-normal text-white"> Anytime is Train Time</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h4 class="font-weight-normal text-white"> Choo Choo. Chee chee</h4>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <div class="card">
+          <div class="card-header">
+              <span class="h5 card-title text-white d-none d-sm-inline">CURRENT TRAIN SCHEDULE</span>
+              <span class="h5 date-time card-title text-white d-none d-sm-inline float-right" id="clock"></span>
+              <span class="h6 card-title text-white d-inline d-sm-none">CURRENT TRAIN SCHEDULE</span>
+              <span class="h6 date-time card-title text-white d-inline d-sm-none float-right" id="clock" ></span>  
+            <!-- <h3 class="card-title">Current Train Schedule</h3>
+            <span id="clock">10:00:01</span> -->
+          </div>
+          <div class="card-body">
+            <table class="table table-striped" id="trainTable">
+              <thead>
+                <tr>
+                  <th scope="col">Train Name</th>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Frequency(min)</th>
+                  <th scope="col">Next Arrival</th>
+                  <th scope="col">Minutes Away</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                    
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mb-3">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Add Train</h3>
+          </div>
+          <div class="card-body">
+            <form class="form">
+              <div class="form-group">
+                <label for="trainName">Train Name</label>
+                <input type="text" class="form-control" id="name" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="trainDest">Destination</label>
+                <input type="text" class="form-control" id="dest" placeholder="">
+              </div>
+              <div class="form-group">
+                <label class="my-1 mr-2" for="firstTime">First Train Time(HH:mm-military time)</label>
+                <input type="text" class="form-control" id="train-time" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="trainFreq">Frequency</label>
+                <input type="text" class="form-control" id="freq" placeholder="">
+              </div>
+
+
+              <input class="btn btn-primary" type="submit" id="submit" value="Submit">
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
+
 </html>
