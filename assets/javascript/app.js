@@ -95,7 +95,7 @@ $(document).ready(function () {
 
   // Append new row
       var newRow = $("<tr>").append(
-        $("<td>").text(name),
+        $("<td>").text(trainName),
         $("<td>").text(trainDest),
         $("<td>").text(trainFreq),
         $("<td class='nextTr'>").text(nextTrain),               
