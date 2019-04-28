@@ -8,6 +8,7 @@ body{
     background-color: rgb(85, 85, 219);
     color: white;
 }
-jumbotron{
-    background-image: url(assets/images/amtrak-363669_1280.jpg);
-}
+.anyClass {
+    height:150px;
+    overflow-y: scroll;
+  }

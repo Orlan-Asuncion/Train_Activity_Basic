@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col-12 mb-3">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header ">
               <span class="h5 card-title text-white d-none d-sm-inline">CURRENT TRAIN SCHEDULE</span>
               <span class="h5 date-time card-title text-white d-none d-sm-inline float-right" id="clock"></span>
               <span class="h6 card-title text-white d-inline d-sm-none">CURRENT TRAIN SCHEDULE</span>
@@ -41,7 +41,7 @@
             <!-- <h3 class="card-title">Current Train Schedule</h3>
             <span id="clock">10:00:01</span> -->
           </div>
-          <div class="card-body">
+          <div class="card-body anyClass">
             <table class="table table-striped" id="trainTable">
               <thead>
                 <tr>
@@ -53,7 +53,7 @@
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody id="add-row">
                     
               </tbody>
             </table>
@@ -63,7 +63,7 @@
       <div class="col-12 mb-3">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Add Train</h3>
+            <h3 class="card-title">Add New Train</h3>
           </div>
           <div class="card-body">
             <form class="form">
@@ -76,7 +76,7 @@
                 <input type="text" class="form-control" id="dest" placeholder="">
               </div>
               <div class="form-group">
-                <label class="my-1 mr-2" for="firstTime">First Train Time(HH:mm-military time)</label>
+                <label class="my-1 mr-2" for="firstTrain">First Train Time(HH:mm-military time)</label>
                 <input type="text" class="form-control" id="train-time" placeholder="">
               </div>
               <div class="form-group">

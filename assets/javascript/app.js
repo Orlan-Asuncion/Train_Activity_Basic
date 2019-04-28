@@ -1,4 +1,5 @@
 //alert("connected");
+var key;
 $(document).ready(function () {
 
   // Initialize Firebase
@@ -57,11 +58,13 @@ $(document).ready(function () {
     var trainDest = childSnapshot.val().dest;
     var firstTrain = childSnapshot.val().first;
     var trainFreq = childSnapshot.val().freq;
-    //  key = childSnapshot.key;
+    
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var firstTrainNew = moment(childSnapshot.val().first, "hh:mm").subtract(1, "years");
     console.log(firstTrainNew);
+    // var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    // console.log(firstTimeConverted);
 
      // Current Time
     var currentTime = moment();
@@ -70,8 +73,9 @@ $(document).ready(function () {
     //   console.log("CURRENT TIME: " + moment(date));
 
     // Difference between the times(current and firstTrain)
-    var diffTime = moment(currentTime).diff(moment(firstTrainNew), "minutes");
+    var diffTime = moment().diff(moment(firstTrainNew), "minutes");
     console.log("DIFFERENCE IN TIME: " + diffTime);
+    
 
     // Time apart (remainder)
     // var tRemainder = diffTime % tFrequency;
@@ -85,39 +89,42 @@ $(document).ready(function () {
        console.log("MINUTES TILL TRAIN: " + minAway);
 
     // Next Train
-     var nextTrain = moment(nextTrain).add(minAway, "minutes");
-        nextTrain = moment(nextTrain).format("hh:mm");
+     var nextTrain = moment(currentTime).add(minAway, "minutes");
+    
      console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
   // Append new row
-    //  var newRow = $("<tr>").append(
-    //    $("<td>").text(name),
-    //    $("<td>").text(dest),
-    //    $("<td>").text(frequency),
-    //    $("<td>").text(nextTrain),
-    //    $("<td>").text(minAway)
+      var newRow = $("<tr>").append(
+        $("<td>").text(name),
+        $("<td>").text(trainDest),
+        $("<td>").text(trainFreq),
+        $("<td class='nextTr'>").text(nextTrain),               
+         $("<td>").text(minAway),
+        $("<td>").html("<span class='remove'> X </span>"));
 
-    var newRow = $("<tr>");
-    newRow.append($("<td>" + childSnapshot.val().name + "</td>"));
-    newRow.append($("<td>" + childSnapshot.val().dest + "</td>"));
-    newRow.append($("<td class='text-center'>" + childSnapshot.val().freq + "</td>"));
-    newRow.append($("<td class='text-center'>" + nextTrain + "</td>"));
-    newRow.append($("<td class='text-center'>" + minAway + "</td>"));
-    // newRow.append($("<td class='text-center'><button class='delete btn btn-danger btn-xs' data-key='" + key + "'>X</button></td>"));
-//Append the new row to the table
+    
+  $(".remove").on('click', function(e) {
+    //stoping bubling up
+    e.stopPropagation();
+    $(this).parent().parent().remove();
+    // childSnapshot.val().remove();
+
+      });
+
+  //Append the new row to the table
     $("#trainTable").append(newRow);
 
  //Delete rows
- $(".delete").on("click", function (event) {
-  var r = confirm("Are you sure you want to Remove this train info from the database?");
-  if (r == true) {
-    keyref = $(this).attr("data-key");
-    console.log(keyref);
-    database.ref().child(keyref).remove();
-    window.location.reload();
-  } else {
+  $(".delete").on("click", function (event) {
+   var r = confirm("Are you sure you want to Remove this train info from the database?");
+   if (r == true) {
+     key= $(this).attr("data-key");
+     console.log(key);
+     database.ref().child(key).remove();
+     window.location.reload();
+   } else {
       
-  }
+   }
   
 });
 
@@ -128,21 +135,9 @@ $(document).ready(function () {
       $("#freq").val("");
       $("#minAway").val("");
   
-
-    // 
-    //   //Train info
-    //   console.log(trainName);
-    //   console.log(destination);
-    //   console.log(frequency);
-    //   console.log(nextTrain);
-    //   console.log(tMinutesTillTrain);
-
-    //  
-
-    //   );
-    //   
   });
 });
+
 
 
 
@@ -150,7 +145,7 @@ $(document).ready(function () {
 $("body").css("background-image", 'url(assets/images/Amtrak-California.jpg');
 function updateClock() {
 
-  var clock = moment().format("MM/DD/YY h:mm:ss a");
+  var clock = moment().format("MM/DD/YY hh:mm:ss a");
 
   $(".date-time").html(clock);
 
