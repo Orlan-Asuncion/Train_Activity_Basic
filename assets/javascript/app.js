@@ -58,7 +58,8 @@ $(document).ready(function () {
     var trainDest = childSnapshot.val().dest;
     var firstTrain = childSnapshot.val().first;
     var trainFreq = childSnapshot.val().freq;
-    
+    var key = childSnapshot.key;
+    console.log(key);
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var firstTrainNew = moment(childSnapshot.val().first, "hh:mm").subtract(1, "years");
@@ -100,13 +101,15 @@ $(document).ready(function () {
         $("<td>").text(trainFreq),
         $("<td class='nextTr'>").text(nextTrain),               
          $("<td>").text(minAway),
-        $("<td>").html("<span class='remove'> X </span>"));
+        $("<td>").html("<span  class='remove' data-key='"+key+"'> X </span>"));
 
     
   $(".remove").on('click', function(e) {
     //stoping bubling up
     e.stopPropagation();
     $(this).parent().parent().remove();
+    var keyRemove= $(this).attr("data-key");
+    database.ref().child(keyRemove).remove();
     // childSnapshot.val().remove();
 
       });
@@ -138,22 +141,36 @@ $(document).ready(function () {
   });
 });
 
-
-
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('clock').innerHTML =
+  h + ":" + m + ":" + s;
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+startTime();
 
 
 $("body").css("background-image", 'url(assets/images/Amtrak-California.jpg');
-function updateClock() {
+// function updateClock() {
 
-  var clock = moment().format("MM/DD/YY hh:mm:ss a");
+//   var clock = moment().format("MM/DD/YY hh:mm:ss a");
 
-  $(".date-time").html(clock);
+//   $(".date-time").html(clock);
 
-  // Get current time in seconds
-  var currentTimeSec = moment();
-  console.log("Current Time in seconds:" + moment(currentTimeSec).format("ss"));
-  if (moment(currentTimeSec).format("ss") == 00) {
-    // When current seconds=00
-    location.reload();
-  }
-};
+//   // Get current time in seconds
+//   var currentTimeSec = moment();
+//   console.log("Current Time in seconds:" + moment(currentTimeSec).format("ss"));
+//   if (moment(currentTimeSec).format("ss") == 00) {
+//     // When current seconds=00
+//     location.reload();
+//   }
+// };
